@@ -1,10 +1,50 @@
 ## Welcome to GitHub Pages
 
 
-https://www.jb51.net/article/115712.htm
-https://www.jianshu.com/p/bed023dd3c12
-https://www.jianshu.com/p/61f75e0f549f
-https://www.cnblogs.com/xiaohualu/p/10308504.html
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(key) {
+ *     this.val = key;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var rob = function(root) {
+  var dfs = function (node) {
+    if (node === null) {
+      return [null, null];
+    }
+    var left = dfs(node.left);
+    var right = dfs(node.right);
+    var res = [];
+    res[0] = left[1] + right[1] + node.key;
+    res[1] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+    return res;
+  };
+
+  var num = dfs(root);
+  return Math.max(num[0], num[1]);
+};
+
+var rob = require('../rob3');
+var BinarySearchTree = require('../../Tree/BinarySearchTree');
+
+test('rob3', function () {
+  var binarySearchTree = new BinarySearchTree();
+
+  binarySearchTree.insert(11);
+  binarySearchTree.insert(7);
+  binarySearchTree.insert(13);
+  binarySearchTree.insert(5);
+  binarySearchTree.insert(3);
+  binarySearchTree.insert(9);
+
+  expect(rob(binarySearchTree.getRoot())).toBe(27);
+});
+
 
 You can use the [editor on GitHub](https://github.com/wulei-666/wulei.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
